@@ -29,27 +29,29 @@ type Response struct {
 // Application marathon application see :
 // https://github.com/mesosphere/marathon/blob/master/REST.md#apps
 type Application struct {
-	ID              string            `json:"id"`
-	Cmd             string            `json:"cmd,omitempty"`
-	Constraints     [][]string        `json:"constraints,omitempty"`
-	Container       *Container        `json:"container,omitempty"`
-	CPUs            float32           `json:"cpus,omitempty"`
-	Deployments     []*Deployment     `json:"deployments,omitempty"`
-	Env             map[string]string `json:"env,omitempty"`
-	Executor        string            `json:"executor,omitempty"`
-	HealthChecks    []*HealthCheck    `json:"healthChecks,omitempty"`
-	Instances       int               `json:"instances,omitemptys"`
-	Mem             float32           `json:"mem,omitempty"`
-	Tasks           []*Task           `json:"tasks,omitempty"`
-	Ports           []int             `json:"ports,omitempty"`
-	RequirePorts    bool              `json:"requirePorts,omitempty"`
-	BackoffFactor   float32           `json:"backoffFactor,omitempty"`
-	TasksRunning    int               `json:"tasksRunning,omitempty"`
-	TasksStaged     int               `json:"tasksStaged,omitempty"`
-	UpgradeStrategy *UpgradeStrategy  `json:"upgradeStrategy,omitempty"`
-	Uris            []string          `json:"uris,omitempty"`
-	Version         string            `json:"version,omitempty"`
-        Labels          map[string]string `json:"labels,omitempty"`
+	ID                    string            `json:"id"`
+	Cmd                   string            `json:"cmd,omitempty"`
+	Constraints           [][]string        `json:"constraints,omitempty"`
+	Container             *Container        `json:"container,omitempty"`
+	CPUs                  float32           `json:"cpus,omitempty"`
+	Deployments           []*Deployment     `json:"deployments,omitempty"`
+	Env                   map[string]string `json:"env,omitempty"`
+	Executor              string            `json:"executor,omitempty"`
+	HealthChecks          []*HealthCheck    `json:"healthChecks,omitempty"`
+	Instances             int               `json:"instances,omitemptys"`
+	Mem                   float32           `json:"mem,omitempty"`
+	Tasks                 []*Task           `json:"tasks,omitempty"`
+	Ports                 []int             `json:"ports,omitempty"`
+	RequirePorts          bool              `json:"requirePorts,omitempty"`
+	BackoffSeconds        float64           `json:"backoffSeconds,omitempty"`
+	BackoffFactor         float32           `json:"backoffFactor,omitempty"`
+	MaxLaunchDelaySeconds float64           `json:"maxLaunchDelaySeconds,omitempty"`
+	TasksRunning          int               `json:"tasksRunning,omitempty"`
+	TasksStaged           int               `json:"tasksStaged,omitempty"`
+	UpgradeStrategy       *UpgradeStrategy  `json:"upgradeStrategy,omitempty"`
+	Uris                  []string          `json:"uris,omitempty"`
+	Version               string            `json:"version,omitempty"`
+	Labels                map[string]string `json:"labels,omitempty"`
 }
 
 // Container is docker parameters
