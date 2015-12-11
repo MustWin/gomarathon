@@ -125,7 +125,7 @@ func (c *Client) request(options *RequestOptions) (*Response, error) {
 		}
 
 		if options.Params.CallbackURL != "" {
-			v.Set("CallbackURL", url.QueryEscape(options.Params.CallbackURL))
+			v.Set("callbackUrl", url.QueryEscape(options.Params.CallbackURL))
 		}
 
 		path = fmt.Sprintf("%s?%s", path, v.Encode())
