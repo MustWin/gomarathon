@@ -43,7 +43,8 @@ func (c *Client) ListAppVersions(appID string) (*Response, error) {
 // GetApp gets a single app with production version
 func (c *Client) GetApp(appID string) (*Response, error) {
 	options := &RequestOptions{
-		Path: fmt.Sprintf("apps/%s", appID),
+		Path:   fmt.Sprintf("apps/%s", appID),
+		Params: &Parameters{Embed: "app.taskStats"},
 	}
 	r, err := c.request(options)
 	if err != nil {

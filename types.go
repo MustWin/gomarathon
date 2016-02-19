@@ -14,6 +14,7 @@ type Parameters struct {
 	Host        string
 	Scale       bool
 	CallbackURL string
+	Embed       string
 }
 
 // Response representation of a full marathon response
@@ -51,7 +52,35 @@ type Application struct {
 	UpgradeStrategy       *UpgradeStrategy  `json:"upgradeStrategy,omitempty"`
 	Uris                  []string          `json:"uris,omitempty"`
 	Version               string            `json:"version,omitempty"`
-        Labels          map[string]string `json:"labels,omitempty"`
+	Labels                map[string]string `json:"labels,omitempty"`
+	TaskStats             *TaskStats        `json:"taskStats,omitempty"`
+}
+
+type TaskStats struct {
+	StartedAfterLastScaling *TaskStatWrapper `json:"startedAfterLastScaling"`
+	WithLatestConfig        *TaskStatWrapper `json:"withLatestConfig"`
+	totalSummary            *TaskStatWrapper `json:"totalSummary"`
+}
+
+type TaskStatWrapper struct {
+	Stats *TaskStat `json:"stats"`
+}
+
+type TaskStat struct {
+	Counts   *TaskCounts   `json:"counts"`
+	LifeTime *TaskLifetime `json:"lifeTime"`
+}
+
+type TaskCounts struct {
+	Staged    int `json:"staged"`
+	Running   int `json:"running"`
+	Healthy   int `json:"healthy"`
+	Unhealthy int `json:"unhealthy"`
+}
+
+type TaskLifetime struct {
+	AverageSeconds float32 `json:"averageSeconds"`
+	MedianSeconds  float32 `json:"medianSeconds"`
 }
 
 // Container is docker parameters
