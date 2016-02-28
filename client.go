@@ -11,6 +11,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"strings"
 )
 
 // Client is containing the configured http.Client
@@ -130,7 +131,9 @@ func (c *Client) request(options *RequestOptions) (*Response, error) {
 		}
 
 		if options.Params.Embed != "" {
-			v.Set("embed", url.QueryEscape(options.Params.Embed))
+			for _, str := range strings.Split(options.Params.Embed, ",") {
+				v.Set("embed", url.QueryEscape(str))
+			}
 		}
 
 		path = fmt.Sprintf("%s?%s", path, v.Encode())

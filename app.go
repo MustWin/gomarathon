@@ -44,7 +44,7 @@ func (c *Client) ListAppVersions(appID string) (*Response, error) {
 func (c *Client) GetApp(appID string) (*Response, error) {
 	options := &RequestOptions{
 		Path:   fmt.Sprintf("apps/%s", appID),
-		Params: &Parameters{Embed: "app.taskStats"},
+		Params: &Parameters{Embed: "app.taskStats,app.tasks,tasks"}, // some future proofing here for embed tasks
 	}
 	r, err := c.request(options)
 	if err != nil {
