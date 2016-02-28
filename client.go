@@ -28,6 +28,7 @@ type Client struct {
 
 type UpdateResp struct {
 	DeploymentID string `json:"deploymentId"`
+	Version      string `json:"version,omitempty"`
 }
 
 // Actual version of the marathon api
@@ -149,6 +150,7 @@ func (c *Client) request(options *RequestOptions) (*Response, error) {
 		err := json.Unmarshal(data, &updateResp)
 		if err == nil {
 			resp.DeploymentId = updateResp.DeploymentID
+			resp.Version = updateResp.Version
 		} else {
 			fmt.Println("Error unmashaling data response")
 		}
