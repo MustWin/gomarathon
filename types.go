@@ -25,6 +25,7 @@ type Response struct {
 	Versions     []string       `json:",omitempty"`
 	Tasks        []*Task        `json:"tasks,omitempty"`
 	DeploymentId string         `json:"deployment_id,omitempty"`
+	Version      string         `json:"version,omitempty"`
 }
 
 // Application marathon application see :
