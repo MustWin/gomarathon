@@ -6,7 +6,7 @@ import (
 )
 
 // RegisterCallbackURL register a new callback url
-func (c *Client) RegisterCallbackURL(uri string) (*Response, error) {
+func (c *Client) RegisterCallbackURL(uri string) (*Response, RemoteError) {
 	options := &RequestOptions{
 		Path:   "eventSubscriptions",
 		Method: "POST",
