@@ -170,7 +170,7 @@ func (c *Client) request(options *RequestOptions) (*Response, error) {
 
 	err = json.Unmarshal(data, resp)
 	if err != nil {
-		return resp, newRemoteError(0, err.Error())
+		return resp, err
 	}
 	return resp, nil
 }
