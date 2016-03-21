@@ -1,30 +1,23 @@
 package gomarathon
 
 type RemoteError interface {
-  Type() string
+  Code() int
   Error() string
 }
 
-var (
-  HttpServerError400 = NewRemoteError("401", "Bad Request")
-  HttpServerError401 = NewRemoteError("401", "Unauthorized")
-  HttpServerError403 = NewRemoteError("403", "Forbidden")
-  HttpServerError404 = NewRemoteError("404", "Not Found")
-)
-
-type MarathonError struct {
-  errType string
+type marathonError struct {
+  errCode int
   errText string
 }
 
-func NewRemoteError(errType string, errText string) *MarathonError {
-  return &MarathonError{errType, errText}
+func newRemoteError(errCode int, errText string) RemoteError {
+  return &marathonError{errCode, errText}
 }
 
-func (e *MarathonError) Type() string {
-  return e.errType
+func (e *marathonError) Code() int {
+  return e.errCode
 }
 
-func (e *MarathonError) Error() string {
+func (e *marathonError) Error() string {
   return e.errText
 }

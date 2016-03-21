@@ -99,7 +99,7 @@ func (c *Client) do(method, path string, data interface{}) ([]byte, int, error) 
 // request prepare the request by setting the correct methods and parameters
 // TODO:
 // 	- find a better way to build parameters
-func (c *Client) request(options *RequestOptions) (*Response, RemoteError) {
+func (c *Client) request(options *RequestOptions) (*Response, error) {
 
 	if options.Path == "" {
 		options.Path = "apps"
@@ -141,7 +141,7 @@ func (c *Client) request(options *RequestOptions) (*Response, RemoteError) {
 
 	data, code, err := c.do(options.Method, path, options.Datas)
 	if err != nil {
-		return nil, NewRemoteError(string(code), err.Error())
+		return nil, newRemoteError(code, err.Error())
 	}
 	resp := &Response{
 		Code: code,
@@ -170,7 +170,7 @@ func (c *Client) request(options *RequestOptions) (*Response, RemoteError) {
 
 	err = json.Unmarshal(data, resp)
 	if err != nil {
-		return resp, NewRemoteError("", err.Error())
+		return resp, newRemoteError(0, err.Error())
 	}
 	return resp, nil
 }
