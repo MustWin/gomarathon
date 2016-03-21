@@ -141,7 +141,7 @@ func (c *Client) request(options *RequestOptions) (*Response, error) {
 
 	data, code, err := c.do(options.Method, path, options.Datas)
 	if err != nil {
-		return nil, err
+		return nil, newRemoteError(code, err.Error())
 	}
 	resp := &Response{
 		Code: code,
@@ -170,7 +170,7 @@ func (c *Client) request(options *RequestOptions) (*Response, error) {
 
 	err = json.Unmarshal(data, resp)
 	if err != nil {
-		return resp, err
+		return resp, newRemoteError(0, err.Error())
 	}
 	return resp, nil
 }
