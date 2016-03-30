@@ -51,7 +51,7 @@ func (c *Client) GetApp(appID string) (*Response, error) {
 		return nil, err
 	}
 	if r.Code != 200 {
-		return nil, fmt.Errorf("request error")
+		return nil, newRemoteError(r.Code, fmt.Sprintf("unexpected response code %d", r.Code))
 	}
 	return r, nil
 }
@@ -66,7 +66,7 @@ func (c *Client) GetAppVersion(appID string, version string) (*Response, error) 
 		return nil, err
 	}
 	if r.Code != 200 {
-		return nil, fmt.Errorf("request error")
+		return nil, newRemoteError(r.Code, fmt.Sprintf("unexpected response code %d", r.Code))
 	}
 	return r, nil
 }
@@ -80,12 +80,13 @@ func (c *Client) CreateApp(app *Application) (*Response, error) {
 		Method: "POST",
 	}
 	r, err := c.request(options)
-	if r != nil {
-		if r.Code == 201 {
-			return r, nil
-		}
+	if err != nil {
+		return nil, err
 	}
-	return nil, err
+	if r.Code != 201 {
+		return nil, newRemoteError(r.Code, fmt.Sprintf("unexpected response code %d", r.Code))
+	}
+	return r, nil
 }
 
 // UpdateApp update the app but thoses changes are made for the next running app and does
@@ -97,13 +98,13 @@ func (c *Client) UpdateApp(appID string, app *Application) (*Response, error) {
 		Method: "PUT",
 	}
 	r, err := c.request(options)
-	if r != nil {
-		if (r.Code == 204) || (r.Code == 200) {
-			return r, nil
-		}
+	if err != nil {
+		return nil, err
 	}
-	return nil, err
-
+	if r.Code != 204 && r.Code != 200 {
+		return nil, newRemoteError(r.Code, fmt.Sprintf("unexpected response code %d", r.Code))
+	}
+	return r, nil
 }
 
 // DeleteApp delete this app from the cluster
@@ -113,12 +114,13 @@ func (c *Client) DeleteApp(appID string) (*Response, error) {
 		Method: "DELETE",
 	}
 	r, err := c.request(options)
-	if r != nil {
-		if r.Code == 200 {
-			return r, nil
-		}
+	if err != nil {
+		return nil, err
 	}
-	return nil, err
+	if r.Code != 200 {
+		return nil, newRemoteError(r.Code, fmt.Sprintf("unexpected response code %d", r.Code))
+	}
+	return r, nil
 }
 
 func (c *Client) DeleteDeployment(deploymentID string) (*Response, error) {
@@ -127,12 +129,13 @@ func (c *Client) DeleteDeployment(deploymentID string) (*Response, error) {
 		Method: "DELETE",
 	}
 	r, err := c.request(options)
-	if r != nil {
-		if (r.Code == 200) || (r.Code == 202) {
-			return r, nil
-		}
+	if err != nil {
+		return nil, err
 	}
-	return nil, err
+	if r.Code != 200 && r.Code != 202 {
+		return nil, newRemoteError(r.Code, fmt.Sprintf("unexpected response code %d", r.Code))
+	}
+	return r, nil
 }
 
 func (c *Client) RestartApp(appID string) (*Response, error) {
@@ -141,10 +144,11 @@ func (c *Client) RestartApp(appID string) (*Response, error) {
 		Method: "POST",
 	}
 	r, err := c.request(options)
-	if r != nil {
-		if r.Code == 204 {
-			return r, nil
-		}
+	if err != nil {
+		return nil, err
 	}
-	return nil, err
+	if r.Code != 204 {
+		return nil, newRemoteError(r.Code, fmt.Sprintf("unexpected response code %d", r.Code))
+	}
+	return r, nil
 }
