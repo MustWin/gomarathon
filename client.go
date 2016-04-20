@@ -162,6 +162,7 @@ func (c *Client) request(options *RequestOptions) (*Response, error) {
 		app := Application{}
 		err := json.Unmarshal(data, &app)
 		if err == nil {
+			resp.App = &app
 			resp.DeploymentId = app.Deployments[0].ID
 		} else {
 			fmt.Println("Error unmashaling data response")
