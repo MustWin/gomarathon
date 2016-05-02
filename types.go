@@ -96,6 +96,12 @@ type Docker struct {
 	Image        string         `json:"image,omitempty"`
 	Network      string         `json:"network,omitempty"`
 	PortMappings []*PortMapping `json:"portMappings,omitempty"`
+	Privileged   bool           `json:"privileged`
+	Parameters   []*DockerParam  `json:"parameters,omitempty"`
+}
+type DockerParam struct {
+	Key   string `json:"key"`
+	Value string `json:"value"`
 }
 
 // Volume is used for mounting a host directory as a container volume
