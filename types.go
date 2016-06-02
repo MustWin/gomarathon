@@ -48,6 +48,8 @@ type Application struct {
 	BackoffSeconds        int               `json:"backoffSeconds,omitempty"`
 	BackoffFactor         float32           `json:"backoffFactor,omitempty"`
 	MaxLaunchDelaySeconds float32           `json:"maxLaunchDelaySeconds,omitempty"`
+	TasksHealthy          int               `json:"tasksHealthy,omitempty"`
+	TasksUnhealthy        int               `json:"tasksUnhealthy,omitempty"`
 	TasksRunning          int               `json:"tasksRunning,omitempty"`
 	TasksStaged           int               `json:"tasksStaged,omitempty"`
 	UpgradeStrategy       *UpgradeStrategy  `json:"upgradeStrategy,omitempty"`
