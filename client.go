@@ -136,6 +136,10 @@ func (c *Client) request(options *RequestOptions) (*Response, error) {
 			}
 		}
 
+        if options.Params.Label != "" {
+            v.Set("label", options.Params.Label)
+        }
+
 		path = fmt.Sprintf("%s?%s", path, v.Encode())
 	}
 

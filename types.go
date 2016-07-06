@@ -15,6 +15,7 @@ type Parameters struct {
 	Scale       bool
 	CallbackURL string
 	Embed       string
+    Label       string
 }
 
 // Response representation of a full marathon response
