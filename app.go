@@ -56,6 +56,22 @@ func (c *Client) GetApp(appID string) (*Response, error) {
 	return r, nil
 }
 
+// GetAppByFilter  gets a list of apps based on a query string, e.g. "label=project_id==1234"
+func (c *Client) GetAppByFilter(filter string) (*Response, error) {
+	options := &RequestOptions{
+		Path:   fmt.Sprintf("apps?%s", filter),
+		Params: &Parameters{Embed: "app.taskStats,app.tasks,tasks"}, // some future proofing here for embed tasks
+	}
+	r, err := c.request(options)
+	if err != nil {
+		return nil, err
+	}
+	if r.Code != 200 {
+		return nil, fmt.Errorf("request error")
+	}
+	return r, nil
+}
+
 // GetAppVersion get a single version from a single app
 func (c *Client) GetAppVersion(appID string, version string) (*Response, error) {
 	options := &RequestOptions{
