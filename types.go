@@ -15,7 +15,8 @@ type Parameters struct {
 	Scale       bool
 	CallbackURL string
 	Embed       string
-    Label       string
+	Label       string
+	Force       bool
 }
 
 // Response representation of a full marathon response
@@ -100,7 +101,7 @@ type Docker struct {
 	Network      string         `json:"network,omitempty"`
 	PortMappings []*PortMapping `json:"portMappings,omitempty"`
 	Privileged   bool           `json:"privileged`
-	Parameters   []*DockerParam  `json:"parameters,omitempty"`
+	Parameters   []*DockerParam `json:"parameters,omitempty"`
 }
 type DockerParam struct {
 	Key   string `json:"key"`

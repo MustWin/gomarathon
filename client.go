@@ -130,15 +130,19 @@ func (c *Client) request(options *RequestOptions) (*Response, error) {
 			v.Set("callbackUrl", url.QueryEscape(options.Params.CallbackURL))
 		}
 
+		if options.Params.Force {
+			v.Set("force", "true")
+		}
+
 		if options.Params.Embed != "" {
 			for _, str := range strings.Split(options.Params.Embed, ",") {
 				v.Set("embed", url.QueryEscape(str))
 			}
 		}
 
-        if options.Params.Label != "" {
-            v.Set("label", options.Params.Label)
-        }
+		if options.Params.Label != "" {
+			v.Set("label", options.Params.Label)
+		}
 
 		path = fmt.Sprintf("%s?%s", path, v.Encode())
 	}
