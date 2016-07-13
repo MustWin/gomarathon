@@ -59,11 +59,11 @@ func (c *Client) GetApp(appID string) (*Response, error) {
 // GetAppByFilter  gets a list of apps based on a query string, e.g. "label=project_id==1234"
 func (c *Client) GetAppByFilter(filter string) (*Response, error) {
 	options := &RequestOptions{
-		Path:   "apps",
+		Path: "apps",
 		Params: &Parameters{
-            Embed: "app.taskStats,app.tasks,tasks", // some future proofing here for embed tasks
-            Label: filter,
-        },
+			Embed: "app.taskStats,app.tasks,tasks", // some future proofing here for embed tasks
+			Label: filter,
+		},
 	}
 	r, err := c.request(options)
 	if err != nil {
@@ -126,11 +126,15 @@ func (c *Client) UpdateApp(appID string, app *Application) (*Response, error) {
 }
 
 // DeleteApp delete this app from the cluster
-func (c *Client) DeleteApp(appID string) (*Response, error) {
+func (c *Client) DeleteApp(appID string, force bool) (*Response, error) {
 	options := &RequestOptions{
 		Path:   fmt.Sprintf("apps/%s", appID),
 		Method: "DELETE",
+		Params: &Parameters{
+			Force: force,
+		},
 	}
+
 	r, err := c.request(options)
 	if r != nil {
 		if r.Code == 200 {
