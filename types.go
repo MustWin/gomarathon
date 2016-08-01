@@ -38,6 +38,7 @@ type Application struct {
 	Constraints           [][]string        `json:"constraints,omitempty"`
 	Container             *Container        `json:"container,omitempty"`
 	CPUs                  float32           `json:"cpus,omitempty"`
+	Dependencies          []string          `json:"dependencies,omitempty"`
 	Deployments           []*Deployment     `json:"deployments,omitempty"`
 	Env                   map[string]string `json:"env,omitempty"`
 	Executor              string            `json:"executor,omitempty"`
