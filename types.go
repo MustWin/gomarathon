@@ -155,6 +155,7 @@ type HealthCheckResult struct {
 type Task struct {
 	AppID              string               `json:"appId"`
 	Host               string               `json:"host"`
+	SlaveID            string               `json:"slaveId"`
 	ID                 string               `json:"id"`
 	Ports              []int                `json:"ports"`
 	StagedAt           string               `json:"stagedAt"`
